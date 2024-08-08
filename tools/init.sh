@@ -11,6 +11,11 @@ ACTIONS_WORKFLOW=pages-deploy.yml
 
 RELEASE_HASH=$(git log --grep="chore(release):" -1 --pretty="%H")
 
+if [ -z "$RELEASE_HASH" ]; then
+  echo "Error: No release hash found. Cannot proceed with reset."
+  exit 1
+fi
+
 # temporary file suffixes that make `sed -i` compatible with BSD and Linux
 TEMP_SUFFIX="to-delete"
 
